@@ -10,7 +10,7 @@ if __name__ == '__main__':
                               include_dirs=[numpy.get_include()],
                               language="c++")
                 ]
-    dist = Distribution({'name': '_peak_detection', 'ext_modules': cythonize(extensions)})
+    dist = Distribution({'name': '_peak_detection', 'ext_modules': cythonize(extensions, language_level=3)})
     cmd = build_ext(dist)
     cmd.build_lib = "."
     cmd.ensure_finalized()

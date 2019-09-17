@@ -6,14 +6,13 @@ cimport libcpp.deque
 cimport libcpp.map
 cimport libcpp.vector
 from libcpp cimport bool
-from libcpp.deque  cimport *
-from libcpp.map    cimport *
+from libcpp.deque cimport *
+from libcpp.map cimport *
 from libcpp.vector cimport *
 from cython.operator cimport dereference as deref, preincrement as inc
 
 cdef extern from "<algorithm>" namespace "std":
     void partial_sort[RandomAccessIterator](RandomAccessIterator first, RandomAccessIterator middle, RandomAccessIterator last)
-
 
 cpdef p_sort():
     cdef vector[int] v
@@ -27,12 +26,13 @@ cpdef p_sort():
     for i in v:
         res.append(i)
     return res
- 
+
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 def _ridge_detection(np.ndarray[np.uint8_t, cast=True, ndim=2] local_max, int row_best, int col,
                      int n_rows, int n_cols, int minus=True, int plus=True):
- 
+
     cdef libcpp.deque.deque[int] cols = deque[int]()
     cdef libcpp.deque.deque[int] rows = deque[int]()
     cdef int col_plus = col
@@ -40,10 +40,10 @@ def _ridge_detection(np.ndarray[np.uint8_t, cast=True, ndim=2] local_max, int ro
     cdef int segment_plus = 1
     cdef int segment_minus = 1
     cdef int row_plus, row_minus, i
- 
+
     cols.push_back(col)
     rows.push_back(row_best)
- 
+
     for i in range(1, n_rows):
         row_plus = row_best + i
         row_minus = row_best - i
@@ -76,11 +76,11 @@ def _ridge_detection(np.ndarray[np.uint8_t, cast=True, ndim=2] local_max, int ro
                 (True == minus and True == plus and col_plus == -1 and col_minus == -1):
             break
     return [rows[i] for i in range(rows.size())], [cols[i] for i in range(cols.size())]
- 
+
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef _local_extreme(data, comparator,
-                  axis=0, order=1, mode='clip'):
+cdef _local_extreme(data, comparator, axis=0, order=1, mode='clip'):
     if (int(order) != order) or (order < 1):
         raise ValueError('Order must be an int >= 1')
     datalen = data.shape[axis]
@@ -99,11 +99,11 @@ cdef _local_extreme(data, comparator,
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef inline _mode(np.ndarray[np.int_t, cast=True, ndim=2] ridge, np.ndarray[np.float64_t, ndim=2] cwt2d):
+cdef inline _mode(np.ndarray[int, ndim=2] ridge, np.ndarray[np.float64_t, ndim=2] cwt2d):
     cdef np.int i, key, t, m
     cdef np.long n = ridge.shape[1]
 
-    cdef libcpp.map.map[int,libcpp.vector.vector[int]]   counts = map[int,libcpp.vector.vector[int]]()
+    cdef libcpp.map.map[int, libcpp.vector.vector[int]]   counts = map[int, libcpp.vector.vector[int]]()
     for i in range(n):
         if cwt2d[ridge[0,i], ridge[1,i]] > 0:
             counts[ridge[1,i]].push_back(ridge[0,i])
@@ -120,10 +120,10 @@ cdef inline _mode(np.ndarray[np.int_t, cast=True, ndim=2] ridge, np.ndarray[np.f
     else:
         return -1, -1
 
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
-def _peaks_position(np.ndarray[np.float64_t, ndim=1] vec, ridges,
-                        np.ndarray[np.float64_t, ndim=2] cwt2d):
+def _peaks_position(np.ndarray[np.float64_t, ndim=1] vec, ridges, np.ndarray[np.float64_t, ndim=2] cwt2d):
     cdef int n_cols = cwt2d.shape[1], n_rows = cwt2d.shape[0]
     cdef int n_ridges = len(ridges)
     cdef int i, j
@@ -132,7 +132,6 @@ def _peaks_position(np.ndarray[np.float64_t, ndim=1] vec, ridges,
     cdef libcpp.vector.vector[int] peaks
     cdef libcpp.vector.vector[int] ridges_select
     cdef libcpp.vector.vector[int] rows
-
 
     cdef np.ndarray[np.uint8_t, cast=True, ndim=2] negs = cwt2d < 0
     cdef np.ndarray[np.uint8_t, cast=True, ndim=2] local_minus = _local_extreme(cwt2d, np.less, axis=1, order=1)
@@ -161,7 +160,7 @@ def _peaks_position(np.ndarray[np.float64_t, ndim=1] vec, ridges,
             peaks.push_back(max_ind)
             ridges_select.push_back(ridge_ind)
         elif ridges[ridge_ind].shape[1] > 2: # local wavelet coefficients < 0
-            cols_accurate = ridges[ridge_ind][1, 0:ridges[ridge_ind].shape[1] / 2]
+            cols_accurate = ridges[ridge_ind][1, 0:int(ridges[ridge_ind].shape[1] / 2)]
             cols_start = max(np.min(cols_accurate) - 3, 0)
             cols_end = min(np.max(cols_accurate) + 4, n_cols - 1)
             max_ind = -1
@@ -173,7 +172,6 @@ def _peaks_position(np.ndarray[np.float64_t, ndim=1] vec, ridges,
             peaks.push_back(max_ind)
             ridges_select.push_back(ridge_ind)
 
-
     cdef libcpp.vector.vector[int] peaks_refine
     cdef libcpp.vector.vector[int] ridges_refine
     cdef int n = peaks.size()
@@ -183,7 +181,7 @@ def _peaks_position(np.ndarray[np.float64_t, ndim=1] vec, ridges,
     cdef int peak = peaks[0]
     cdef int peak_ind = 0
     for i in range(1, n):
-        print peaks[i], ridges_len[i]
+        print(peaks[i], ridges_len[i])
         if peaks[i] == peak and ridges_len[i] >= peak_len:
             peak_len = ridges_len[i]
             peak = peaks[i]
