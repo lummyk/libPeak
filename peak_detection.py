@@ -2,7 +2,7 @@ import numpy as np
 from scipy.signal import fftconvolve
 from scipy.stats import scoreatpercentile, mode
 from collections import deque
-from _peak_detection import _ridge_detection, _peaks_position
+from ._peak_detection import _ridge_detection, _peaks_position
 
 
 def mexican_hat(points, a):
