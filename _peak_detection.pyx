@@ -152,7 +152,7 @@ def _peaks_position(np.ndarray[np.float64_t, ndim=1] vec, ridges, np.ndarray[np.
                     break
             max_ind = -1
             max_val = -10e20
-            # print col, row, cols_start, cols_end
+            # print(col, row, cols_start, cols_end)
             for i in range(cols_start , cols_end):
                 if vec[i] > max_val:
                     max_val = vec[i]
@@ -181,7 +181,7 @@ def _peaks_position(np.ndarray[np.float64_t, ndim=1] vec, ridges, np.ndarray[np.
     cdef int peak = peaks[0]
     cdef int peak_ind = 0
     for i in range(1, n):
-        print(peaks[i], ridges_len[i])
+        # print(peaks[i], ridges_len[i])
         if peaks[i] == peak and ridges_len[i] >= peak_len:
             peak_len = ridges_len[i]
             peak = peaks[i]

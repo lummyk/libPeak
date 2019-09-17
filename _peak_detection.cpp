@@ -1890,7 +1890,6 @@ int __pyx_module_is_main__peak_detection = 0;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_xrange;
-static PyObject *__pyx_builtin_print;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
 static const char __pyx_k_i[] = "i";
@@ -1923,7 +1922,6 @@ static const char __pyx_k_dtype[] = "dtype";
 static const char __pyx_k_minus[] = "minus";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_peaks[] = "peaks";
-static const char __pyx_k_print[] = "print";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_arange[] = "arange";
@@ -2029,7 +2027,6 @@ static PyObject *__pyx_n_s_peaks;
 static PyObject *__pyx_n_s_peaks_position;
 static PyObject *__pyx_n_s_peaks_refine;
 static PyObject *__pyx_n_s_plus;
-static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_ridge_detection;
 static PyObject *__pyx_n_s_ridge_ind;
@@ -4714,7 +4711,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  *                     break
  *             max_ind = -1             # <<<<<<<<<<<<<<
  *             max_val = -10e20
- *             # print col, row, cols_start, cols_end
+ *             # print(col, row, cols_start, cols_end)
  */
       __pyx_v_max_ind = -1;
 
@@ -4722,14 +4719,14 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  *                     break
  *             max_ind = -1
  *             max_val = -10e20             # <<<<<<<<<<<<<<
- *             # print col, row, cols_start, cols_end
+ *             # print(col, row, cols_start, cols_end)
  *             for i in range(cols_start , cols_end):
  */
       __pyx_v_max_val = -10e20;
 
       /* "_peak_detection.pyx":156
  *             max_val = -10e20
- *             # print col, row, cols_start, cols_end
+ *             # print(col, row, cols_start, cols_end)
  *             for i in range(cols_start , cols_end):             # <<<<<<<<<<<<<<
  *                 if vec[i] > max_val:
  *                     max_val = vec[i]
@@ -4740,7 +4737,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
         __pyx_v_i = __pyx_t_19;
 
         /* "_peak_detection.pyx":157
- *             # print col, row, cols_start, cols_end
+ *             # print(col, row, cols_start, cols_end)
  *             for i in range(cols_start , cols_end):
  *                 if vec[i] > max_val:             # <<<<<<<<<<<<<<
  *                     max_val = vec[i]
@@ -4770,7 +4767,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
           __pyx_v_max_ind = __pyx_v_i;
 
           /* "_peak_detection.pyx":157
- *             # print col, row, cols_start, cols_end
+ *             # print(col, row, cols_start, cols_end)
  *             for i in range(cols_start , cols_end):
  *                 if vec[i] > max_val:             # <<<<<<<<<<<<<<
  *                     max_val = vec[i]
@@ -4798,7 +4795,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  *             peaks.push_back(max_ind)
  *             ridges_select.push_back(ridge_ind)             # <<<<<<<<<<<<<<
  *         elif ridges[ridge_ind].shape[1] > 2: # local wavelet coefficients < 0
- *             print(ridges[ridge_ind])
+ *             cols_accurate = ridges[ridge_ind][1, 0:int(ridges[ridge_ind].shape[1] / 2)]
  */
       try {
         __pyx_v_ridges_select.push_back(__pyx_v_ridge_ind);
@@ -4821,8 +4818,8 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  *             peaks.push_back(max_ind)
  *             ridges_select.push_back(ridge_ind)
  *         elif ridges[ridge_ind].shape[1] > 2: # local wavelet coefficients < 0             # <<<<<<<<<<<<<<
- *             print(ridges[ridge_ind])
- * 
+ *             cols_accurate = ridges[ridge_ind][1, 0:int(ridges[ridge_ind].shape[1] / 2)]
+ *             cols_start = max(np.min(cols_accurate) - 3, 0)
  */
     __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_ridges, __pyx_v_ridge_ind, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
@@ -4841,110 +4838,96 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
       /* "_peak_detection.pyx":163
  *             ridges_select.push_back(ridge_ind)
  *         elif ridges[ridge_ind].shape[1] > 2: # local wavelet coefficients < 0
- *             print(ridges[ridge_ind])             # <<<<<<<<<<<<<<
- * 
- *             cols_accurate = ridges[ridge_ind][1, 0:int(ridges[ridge_ind].shape[1] / 2)]
- */
-      __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_ridges, __pyx_v_ridge_ind, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_13); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-
-      /* "_peak_detection.pyx":165
- *             print(ridges[ridge_ind])
- * 
  *             cols_accurate = ridges[ridge_ind][1, 0:int(ridges[ridge_ind].shape[1] / 2)]             # <<<<<<<<<<<<<<
  *             cols_start = max(np.min(cols_accurate) - 3, 0)
  *             cols_end = min(np.max(cols_accurate) + 4, n_cols - 1)
  */
-      __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_ridges, __pyx_v_ridge_ind, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 165, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_ridges, __pyx_v_ridge_ind, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_13);
+      __pyx_t_4 = __Pyx_GetItemInt(__pyx_v_ridges, __pyx_v_ridge_ind, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_13 = __Pyx_GetItemInt(__pyx_v_ridges, __pyx_v_ridge_ind, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 165, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __pyx_t_13 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 165, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyInt_TrueDivideObjC(__pyx_t_13, __pyx_int_2, 2, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __pyx_t_13 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 165, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PySlice_New(__pyx_int_0, __pyx_t_13, Py_None); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 165, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __Pyx_INCREF(__pyx_int_1);
-      __Pyx_GIVEREF(__pyx_int_1);
-      PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_int_1);
-      __Pyx_GIVEREF(__pyx_t_2);
-      PyTuple_SET_ITEM(__pyx_t_13, 1, __pyx_t_2);
-      __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_4, __pyx_t_13); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_shape); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyInt_TrueDivideObjC(__pyx_t_4, __pyx_int_2, 2, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyNumber_Int(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = PySlice_New(__pyx_int_0, __pyx_t_4, Py_None); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_INCREF(__pyx_int_1);
+      __Pyx_GIVEREF(__pyx_int_1);
+      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_int_1);
+      __Pyx_GIVEREF(__pyx_t_2);
+      PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_2);
+      __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyObject_GetItem(__pyx_t_13, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 163, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_XDECREF_SET(__pyx_v_cols_accurate, __pyx_t_2);
       __pyx_t_2 = 0;
 
-      /* "_peak_detection.pyx":166
- * 
+      /* "_peak_detection.pyx":164
+ *         elif ridges[ridge_ind].shape[1] > 2: # local wavelet coefficients < 0
  *             cols_accurate = ridges[ridge_ind][1, 0:int(ridges[ridge_ind].shape[1] / 2)]
  *             cols_start = max(np.min(cols_accurate) - 3, 0)             # <<<<<<<<<<<<<<
  *             cols_end = min(np.max(cols_accurate) + 4, n_cols - 1)
  *             max_ind = -1
  */
       __pyx_t_27 = 0;
-      __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 166, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_min); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __pyx_t_13 = NULL;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-        __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_4);
-        if (likely(__pyx_t_13)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-          __Pyx_INCREF(__pyx_t_13);
+      __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_min); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 164, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_13);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = NULL;
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_13))) {
+        __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_13);
+        if (likely(__pyx_t_4)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_13);
+          __Pyx_INCREF(__pyx_t_4);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_4, function);
+          __Pyx_DECREF_SET(__pyx_t_13, function);
         }
       }
-      __pyx_t_2 = (__pyx_t_13) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_13, __pyx_v_cols_accurate) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_v_cols_accurate);
-      __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_13, __pyx_t_4, __pyx_v_cols_accurate) : __Pyx_PyObject_CallOneArg(__pyx_t_13, __pyx_v_cols_accurate);
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 164, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyInt_SubtractObjC(__pyx_t_2, __pyx_int_3, 3, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_13 = __Pyx_PyInt_From_long(__pyx_t_27); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 166, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_14 = PyObject_RichCompare(__pyx_t_13, __pyx_t_4, Py_GT); __Pyx_XGOTREF(__pyx_t_14); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 166, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_14); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 166, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyInt_SubtractObjC(__pyx_t_2, __pyx_int_3, 3, 0, 0); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 164, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_13);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_t_27); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 164, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_14 = PyObject_RichCompare(__pyx_t_4, __pyx_t_13, Py_GT); __Pyx_XGOTREF(__pyx_t_14); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 164, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_14); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 164, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
       if (__pyx_t_18) {
-        __pyx_t_14 = __Pyx_PyInt_From_long(__pyx_t_27); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 166, __pyx_L1_error)
+        __pyx_t_14 = __Pyx_PyInt_From_long(__pyx_t_27); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 164, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_14);
         __pyx_t_2 = __pyx_t_14;
         __pyx_t_14 = 0;
       } else {
-        __Pyx_INCREF(__pyx_t_4);
-        __pyx_t_2 = __pyx_t_4;
+        __Pyx_INCREF(__pyx_t_13);
+        __pyx_t_2 = __pyx_t_13;
       }
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_17 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 166, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __pyx_t_17 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 164, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_cols_start = __pyx_t_17;
 
-      /* "_peak_detection.pyx":167
+      /* "_peak_detection.pyx":165
  *             cols_accurate = ridges[ridge_ind][1, 0:int(ridges[ridge_ind].shape[1] / 2)]
  *             cols_start = max(np.min(cols_accurate) - 3, 0)
  *             cols_end = min(np.max(cols_accurate) + 4, n_cols - 1)             # <<<<<<<<<<<<<<
@@ -4952,50 +4935,50 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  *             max_val = -10e20
  */
       __pyx_t_27 = (__pyx_v_n_cols - 1);
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 167, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_max); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 167, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_13, __pyx_n_s_np); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 165, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_13);
+      __pyx_t_14 = __Pyx_PyObject_GetAttrStr(__pyx_t_13, __pyx_n_s_max); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 165, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = NULL;
+      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __pyx_t_13 = NULL;
       if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_14))) {
-        __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_14);
-        if (likely(__pyx_t_4)) {
+        __pyx_t_13 = PyMethod_GET_SELF(__pyx_t_14);
+        if (likely(__pyx_t_13)) {
           PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_14);
-          __Pyx_INCREF(__pyx_t_4);
+          __Pyx_INCREF(__pyx_t_13);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_14, function);
         }
       }
-      __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_14, __pyx_t_4, __pyx_v_cols_accurate) : __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_v_cols_accurate);
-      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 167, __pyx_L1_error)
+      __pyx_t_2 = (__pyx_t_13) ? __Pyx_PyObject_Call2Args(__pyx_t_14, __pyx_t_13, __pyx_v_cols_accurate) : __Pyx_PyObject_CallOneArg(__pyx_t_14, __pyx_v_cols_accurate);
+      __Pyx_XDECREF(__pyx_t_13); __pyx_t_13 = 0;
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_4, 4, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 167, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_PyInt_AddObjC(__pyx_t_2, __pyx_int_4, 4, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 165, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_t_27); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 167, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_13 = PyObject_RichCompare(__pyx_t_4, __pyx_t_14, Py_LT); __Pyx_XGOTREF(__pyx_t_13); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 167, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_13); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 167, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyInt_From_long(__pyx_t_27); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 165, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_13);
+      __pyx_t_4 = PyObject_RichCompare(__pyx_t_13, __pyx_t_14, Py_LT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 165, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      __pyx_t_18 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_18 < 0)) __PYX_ERR(0, 165, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_18) {
-        __pyx_t_13 = __Pyx_PyInt_From_long(__pyx_t_27); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 167, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_13);
-        __pyx_t_2 = __pyx_t_13;
-        __pyx_t_13 = 0;
+        __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_t_27); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 165, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_2 = __pyx_t_4;
+        __pyx_t_4 = 0;
       } else {
         __Pyx_INCREF(__pyx_t_14);
         __pyx_t_2 = __pyx_t_14;
       }
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_17 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 167, __pyx_L1_error)
+      __pyx_t_17 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 165, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_v_cols_end = __pyx_t_17;
 
-      /* "_peak_detection.pyx":168
+      /* "_peak_detection.pyx":166
  *             cols_start = max(np.min(cols_accurate) - 3, 0)
  *             cols_end = min(np.max(cols_accurate) + 4, n_cols - 1)
  *             max_ind = -1             # <<<<<<<<<<<<<<
@@ -5004,7 +4987,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       __pyx_v_max_ind = -1;
 
-      /* "_peak_detection.pyx":169
+      /* "_peak_detection.pyx":167
  *             cols_end = min(np.max(cols_accurate) + 4, n_cols - 1)
  *             max_ind = -1
  *             max_val = -10e20             # <<<<<<<<<<<<<<
@@ -5013,7 +4996,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       __pyx_v_max_val = -10e20;
 
-      /* "_peak_detection.pyx":170
+      /* "_peak_detection.pyx":168
  *             max_ind = -1
  *             max_val = -10e20
  *             for i in range(cols_start , cols_end):             # <<<<<<<<<<<<<<
@@ -5025,7 +5008,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
       for (__pyx_t_19 = __pyx_v_cols_start; __pyx_t_19 < __pyx_t_16; __pyx_t_19+=1) {
         __pyx_v_i = __pyx_t_19;
 
-        /* "_peak_detection.pyx":171
+        /* "_peak_detection.pyx":169
  *             max_val = -10e20
  *             for i in range(cols_start , cols_end):
  *                 if vec[i] > max_val:             # <<<<<<<<<<<<<<
@@ -5036,7 +5019,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
         __pyx_t_18 = (((*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_vec.rcbuffer->pybuffer.buf, __pyx_t_28, __pyx_pybuffernd_vec.diminfo[0].strides)) > __pyx_v_max_val) != 0);
         if (__pyx_t_18) {
 
-          /* "_peak_detection.pyx":172
+          /* "_peak_detection.pyx":170
  *             for i in range(cols_start , cols_end):
  *                 if vec[i] > max_val:
  *                     max_val = vec[i]             # <<<<<<<<<<<<<<
@@ -5046,7 +5029,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
           __pyx_t_29 = __pyx_v_i;
           __pyx_v_max_val = (*__Pyx_BufPtrStrided1d(__pyx_t_5numpy_float64_t *, __pyx_pybuffernd_vec.rcbuffer->pybuffer.buf, __pyx_t_29, __pyx_pybuffernd_vec.diminfo[0].strides));
 
-          /* "_peak_detection.pyx":173
+          /* "_peak_detection.pyx":171
  *                 if vec[i] > max_val:
  *                     max_val = vec[i]
  *                     max_ind = i             # <<<<<<<<<<<<<<
@@ -5055,7 +5038,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
           __pyx_v_max_ind = __pyx_v_i;
 
-          /* "_peak_detection.pyx":171
+          /* "_peak_detection.pyx":169
  *             max_val = -10e20
  *             for i in range(cols_start , cols_end):
  *                 if vec[i] > max_val:             # <<<<<<<<<<<<<<
@@ -5065,7 +5048,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
         }
       }
 
-      /* "_peak_detection.pyx":174
+      /* "_peak_detection.pyx":172
  *                     max_val = vec[i]
  *                     max_ind = i
  *             peaks.push_back(max_ind)             # <<<<<<<<<<<<<<
@@ -5076,10 +5059,10 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
         __pyx_v_peaks.push_back(__pyx_v_max_ind);
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        __PYX_ERR(0, 174, __pyx_L1_error)
+        __PYX_ERR(0, 172, __pyx_L1_error)
       }
 
-      /* "_peak_detection.pyx":175
+      /* "_peak_detection.pyx":173
  *                     max_ind = i
  *             peaks.push_back(max_ind)
  *             ridges_select.push_back(ridge_ind)             # <<<<<<<<<<<<<<
@@ -5090,21 +5073,21 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
         __pyx_v_ridges_select.push_back(__pyx_v_ridge_ind);
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        __PYX_ERR(0, 175, __pyx_L1_error)
+        __PYX_ERR(0, 173, __pyx_L1_error)
       }
 
       /* "_peak_detection.pyx":162
  *             peaks.push_back(max_ind)
  *             ridges_select.push_back(ridge_ind)
  *         elif ridges[ridge_ind].shape[1] > 2: # local wavelet coefficients < 0             # <<<<<<<<<<<<<<
- *             print(ridges[ridge_ind])
- * 
+ *             cols_accurate = ridges[ridge_ind][1, 0:int(ridges[ridge_ind].shape[1] / 2)]
+ *             cols_start = max(np.min(cols_accurate) - 3, 0)
  */
     }
     __pyx_L7:;
   }
 
-  /* "_peak_detection.pyx":179
+  /* "_peak_detection.pyx":177
  *     cdef libcpp.vector.vector[int] peaks_refine
  *     cdef libcpp.vector.vector[int] ridges_refine
  *     cdef int n = peaks.size()             # <<<<<<<<<<<<<<
@@ -5113,7 +5096,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
   __pyx_v_n = __pyx_v_peaks.size();
 
-  /* "_peak_detection.pyx":180
+  /* "_peak_detection.pyx":178
  *     cdef libcpp.vector.vector[int] ridges_refine
  *     cdef int n = peaks.size()
  *     ridges_len = [ridges[i].shape[1] for i in ridges_select]             # <<<<<<<<<<<<<<
@@ -5121,7 +5104,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  *     cdef int peak_len = ridges_len[0]
  */
   { /* enter inner scope */
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 180, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 178, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_30 = __pyx_v_ridges_select.begin();
     for (;;) {
@@ -5129,32 +5112,32 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
       __pyx_t_7 = *__pyx_t_30;
       ++__pyx_t_30;
       __pyx_8genexpr2__pyx_v_i = __pyx_t_7;
-      __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_ridges, __pyx_8genexpr2__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 180, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_GetItemInt(__pyx_v_ridges, __pyx_8genexpr2__pyx_v_i, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 178, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __pyx_t_13 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_shape); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 180, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_14, __pyx_n_s_shape); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 178, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-      __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_13, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 180, __pyx_L1_error)
+      __pyx_t_14 = __Pyx_GetItemInt(__pyx_t_4, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 178, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_14);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_14))) __PYX_ERR(0, 180, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_14))) __PYX_ERR(0, 178, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     }
   } /* exit inner scope */
   __pyx_v_ridges_len = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "_peak_detection.pyx":182
+  /* "_peak_detection.pyx":180
  *     ridges_len = [ridges[i].shape[1] for i in ridges_select]
  * 
  *     cdef int peak_len = ridges_len[0]             # <<<<<<<<<<<<<<
  *     cdef int peak = peaks[0]
  *     cdef int peak_ind = 0
  */
-  __pyx_t_7 = __Pyx_PyInt_As_int(PyList_GET_ITEM(__pyx_v_ridges_len, 0)); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 182, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(PyList_GET_ITEM(__pyx_v_ridges_len, 0)); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 180, __pyx_L1_error)
   __pyx_v_peak_len = __pyx_t_7;
 
-  /* "_peak_detection.pyx":183
+  /* "_peak_detection.pyx":181
  * 
  *     cdef int peak_len = ridges_len[0]
  *     cdef int peak = peaks[0]             # <<<<<<<<<<<<<<
@@ -5163,20 +5146,20 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
   __pyx_v_peak = (__pyx_v_peaks[0]);
 
-  /* "_peak_detection.pyx":184
+  /* "_peak_detection.pyx":182
  *     cdef int peak_len = ridges_len[0]
  *     cdef int peak = peaks[0]
  *     cdef int peak_ind = 0             # <<<<<<<<<<<<<<
  *     for i in range(1, n):
- *         print(peaks[i], ridges_len[i])
+ *         # print(peaks[i], ridges_len[i])
  */
   __pyx_v_peak_ind = 0;
 
-  /* "_peak_detection.pyx":185
+  /* "_peak_detection.pyx":183
  *     cdef int peak = peaks[0]
  *     cdef int peak_ind = 0
  *     for i in range(1, n):             # <<<<<<<<<<<<<<
- *         print(peaks[i], ridges_len[i])
+ *         # print(peaks[i], ridges_len[i])
  *         if peaks[i] == peak and ridges_len[i] >= peak_len:
  */
   __pyx_t_7 = __pyx_v_n;
@@ -5184,31 +5167,9 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
   for (__pyx_t_12 = 1; __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
     __pyx_v_i = __pyx_t_12;
 
-    /* "_peak_detection.pyx":186
- *     cdef int peak_ind = 0
+    /* "_peak_detection.pyx":185
  *     for i in range(1, n):
- *         print(peaks[i], ridges_len[i])             # <<<<<<<<<<<<<<
- *         if peaks[i] == peak and ridges_len[i] >= peak_len:
- *             peak_len = ridges_len[i]
- */
-    __pyx_t_2 = __Pyx_PyInt_From_int((__pyx_v_peaks[__pyx_v_i])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_14 = PyTuple_New(2); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 186, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_14);
-    __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_14, 0, __pyx_t_2);
-    __Pyx_INCREF(PyList_GET_ITEM(__pyx_v_ridges_len, __pyx_v_i));
-    __Pyx_GIVEREF(PyList_GET_ITEM(__pyx_v_ridges_len, __pyx_v_i));
-    PyTuple_SET_ITEM(__pyx_t_14, 1, PyList_GET_ITEM(__pyx_v_ridges_len, __pyx_v_i));
-    __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_14, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 186, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-    /* "_peak_detection.pyx":187
- *     for i in range(1, n):
- *         print(peaks[i], ridges_len[i])
+ *         # print(peaks[i], ridges_len[i])
  *         if peaks[i] == peak and ridges_len[i] >= peak_len:             # <<<<<<<<<<<<<<
  *             peak_len = ridges_len[i]
  *             peak = peaks[i]
@@ -5219,27 +5180,27 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
       __pyx_t_18 = __pyx_t_20;
       goto __pyx_L30_bool_binop_done;
     }
-    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_peak_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_peak_len); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 185, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_14 = PyObject_RichCompare(PyList_GET_ITEM(__pyx_v_ridges_len, __pyx_v_i), __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_14); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_14 = PyObject_RichCompare(PyList_GET_ITEM(__pyx_v_ridges_len, __pyx_v_i), __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_14); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 185, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_20 = __Pyx_PyObject_IsTrue(__pyx_t_14); if (unlikely(__pyx_t_20 < 0)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_20 = __Pyx_PyObject_IsTrue(__pyx_t_14); if (unlikely(__pyx_t_20 < 0)) __PYX_ERR(0, 185, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_14); __pyx_t_14 = 0;
     __pyx_t_18 = __pyx_t_20;
     __pyx_L30_bool_binop_done:;
     if (__pyx_t_18) {
 
-      /* "_peak_detection.pyx":188
- *         print(peaks[i], ridges_len[i])
+      /* "_peak_detection.pyx":186
+ *         # print(peaks[i], ridges_len[i])
  *         if peaks[i] == peak and ridges_len[i] >= peak_len:
  *             peak_len = ridges_len[i]             # <<<<<<<<<<<<<<
  *             peak = peaks[i]
  *             peak_ind = i
  */
-      __pyx_t_17 = __Pyx_PyInt_As_int(PyList_GET_ITEM(__pyx_v_ridges_len, __pyx_v_i)); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 188, __pyx_L1_error)
+      __pyx_t_17 = __Pyx_PyInt_As_int(PyList_GET_ITEM(__pyx_v_ridges_len, __pyx_v_i)); if (unlikely((__pyx_t_17 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 186, __pyx_L1_error)
       __pyx_v_peak_len = __pyx_t_17;
 
-      /* "_peak_detection.pyx":189
+      /* "_peak_detection.pyx":187
  *         if peaks[i] == peak and ridges_len[i] >= peak_len:
  *             peak_len = ridges_len[i]
  *             peak = peaks[i]             # <<<<<<<<<<<<<<
@@ -5248,7 +5209,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       __pyx_v_peak = (__pyx_v_peaks[__pyx_v_i]);
 
-      /* "_peak_detection.pyx":190
+      /* "_peak_detection.pyx":188
  *             peak_len = ridges_len[i]
  *             peak = peaks[i]
  *             peak_ind = i             # <<<<<<<<<<<<<<
@@ -5257,16 +5218,16 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       __pyx_v_peak_ind = __pyx_v_i;
 
-      /* "_peak_detection.pyx":187
+      /* "_peak_detection.pyx":185
  *     for i in range(1, n):
- *         print(peaks[i], ridges_len[i])
+ *         # print(peaks[i], ridges_len[i])
  *         if peaks[i] == peak and ridges_len[i] >= peak_len:             # <<<<<<<<<<<<<<
  *             peak_len = ridges_len[i]
  *             peak = peaks[i]
  */
     }
 
-    /* "_peak_detection.pyx":191
+    /* "_peak_detection.pyx":189
  *             peak = peaks[i]
  *             peak_ind = i
  *         if peaks[i] != peak:             # <<<<<<<<<<<<<<
@@ -5276,7 +5237,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
     __pyx_t_18 = (((__pyx_v_peaks[__pyx_v_i]) != __pyx_v_peak) != 0);
     if (__pyx_t_18) {
 
-      /* "_peak_detection.pyx":192
+      /* "_peak_detection.pyx":190
  *             peak_ind = i
  *         if peaks[i] != peak:
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \             # <<<<<<<<<<<<<<
@@ -5314,7 +5275,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
       }
       __pyx_L35_next_and:;
 
-      /* "_peak_detection.pyx":193
+      /* "_peak_detection.pyx":191
  *         if peaks[i] != peak:
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \
  *                     and (vec[peak] > vec[min(peak + 1, n_cols)] or vec[peak] > vec[min(peak + 2, n_cols)]):             # <<<<<<<<<<<<<<
@@ -5349,7 +5310,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
       __pyx_t_18 = __pyx_t_20;
       __pyx_L34_bool_binop_done:;
 
-      /* "_peak_detection.pyx":192
+      /* "_peak_detection.pyx":190
  *             peak_ind = i
  *         if peaks[i] != peak:
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \             # <<<<<<<<<<<<<<
@@ -5358,7 +5319,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       if (__pyx_t_18) {
 
-        /* "_peak_detection.pyx":194
+        /* "_peak_detection.pyx":192
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \
  *                     and (vec[peak] > vec[min(peak + 1, n_cols)] or vec[peak] > vec[min(peak + 2, n_cols)]):
  *                 peaks_refine.push_back(peak)             # <<<<<<<<<<<<<<
@@ -5369,10 +5330,10 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
           __pyx_v_peaks_refine.push_back(__pyx_v_peak);
         } catch(...) {
           __Pyx_CppExn2PyErr();
-          __PYX_ERR(0, 194, __pyx_L1_error)
+          __PYX_ERR(0, 192, __pyx_L1_error)
         }
 
-        /* "_peak_detection.pyx":195
+        /* "_peak_detection.pyx":193
  *                     and (vec[peak] > vec[min(peak + 1, n_cols)] or vec[peak] > vec[min(peak + 2, n_cols)]):
  *                 peaks_refine.push_back(peak)
  *                 ridges_refine.push_back(ridges_select[peak_ind])             # <<<<<<<<<<<<<<
@@ -5383,10 +5344,10 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
           __pyx_v_ridges_refine.push_back((__pyx_v_ridges_select[__pyx_v_peak_ind]));
         } catch(...) {
           __Pyx_CppExn2PyErr();
-          __PYX_ERR(0, 195, __pyx_L1_error)
+          __PYX_ERR(0, 193, __pyx_L1_error)
         }
 
-        /* "_peak_detection.pyx":192
+        /* "_peak_detection.pyx":190
  *             peak_ind = i
  *         if peaks[i] != peak:
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \             # <<<<<<<<<<<<<<
@@ -5395,7 +5356,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       }
 
-      /* "_peak_detection.pyx":196
+      /* "_peak_detection.pyx":194
  *                 peaks_refine.push_back(peak)
  *                 ridges_refine.push_back(ridges_select[peak_ind])
  *             peak = peaks[i]             # <<<<<<<<<<<<<<
@@ -5404,7 +5365,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       __pyx_v_peak = (__pyx_v_peaks[__pyx_v_i]);
 
-      /* "_peak_detection.pyx":197
+      /* "_peak_detection.pyx":195
  *                 ridges_refine.push_back(ridges_select[peak_ind])
  *             peak = peaks[i]
  *             peak_ind = i             # <<<<<<<<<<<<<<
@@ -5413,7 +5374,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       __pyx_v_peak_ind = __pyx_v_i;
 
-      /* "_peak_detection.pyx":191
+      /* "_peak_detection.pyx":189
  *             peak = peaks[i]
  *             peak_ind = i
  *         if peaks[i] != peak:             # <<<<<<<<<<<<<<
@@ -5422,7 +5383,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
     }
 
-    /* "_peak_detection.pyx":198
+    /* "_peak_detection.pyx":196
  *             peak = peaks[i]
  *             peak_ind = i
  *         if i == n - 1:             # <<<<<<<<<<<<<<
@@ -5432,7 +5393,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
     __pyx_t_18 = ((__pyx_v_i == (__pyx_v_n - 1)) != 0);
     if (__pyx_t_18) {
 
-      /* "_peak_detection.pyx":199
+      /* "_peak_detection.pyx":197
  *             peak_ind = i
  *         if i == n - 1:
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \             # <<<<<<<<<<<<<<
@@ -5470,7 +5431,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
       }
       __pyx_L41_next_and:;
 
-      /* "_peak_detection.pyx":200
+      /* "_peak_detection.pyx":198
  *         if i == n - 1:
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \
  *                     and (vec[peak] > vec[min(peak + 1, n_cols)] or vec[peak] > vec[min(peak + 2, n_cols)]):             # <<<<<<<<<<<<<<
@@ -5505,7 +5466,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
       __pyx_t_18 = __pyx_t_20;
       __pyx_L40_bool_binop_done:;
 
-      /* "_peak_detection.pyx":199
+      /* "_peak_detection.pyx":197
  *             peak_ind = i
  *         if i == n - 1:
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \             # <<<<<<<<<<<<<<
@@ -5514,7 +5475,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       if (__pyx_t_18) {
 
-        /* "_peak_detection.pyx":201
+        /* "_peak_detection.pyx":199
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \
  *                     and (vec[peak] > vec[min(peak + 1, n_cols)] or vec[peak] > vec[min(peak + 2, n_cols)]):
  *                 peaks_refine.push_back(peak)             # <<<<<<<<<<<<<<
@@ -5525,10 +5486,10 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
           __pyx_v_peaks_refine.push_back(__pyx_v_peak);
         } catch(...) {
           __Pyx_CppExn2PyErr();
-          __PYX_ERR(0, 201, __pyx_L1_error)
+          __PYX_ERR(0, 199, __pyx_L1_error)
         }
 
-        /* "_peak_detection.pyx":202
+        /* "_peak_detection.pyx":200
  *                     and (vec[peak] > vec[min(peak + 1, n_cols)] or vec[peak] > vec[min(peak + 2, n_cols)]):
  *                 peaks_refine.push_back(peak)
  *                 ridges_refine.push_back(ridges_select[peak_ind])             # <<<<<<<<<<<<<<
@@ -5539,10 +5500,10 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
           __pyx_v_ridges_refine.push_back((__pyx_v_ridges_select[__pyx_v_peak_ind]));
         } catch(...) {
           __Pyx_CppExn2PyErr();
-          __PYX_ERR(0, 202, __pyx_L1_error)
+          __PYX_ERR(0, 200, __pyx_L1_error)
         }
 
-        /* "_peak_detection.pyx":199
+        /* "_peak_detection.pyx":197
  *             peak_ind = i
  *         if i == n - 1:
  *             if (vec[peak] > vec[max(peak - 1, 0)] or vec[peak] > vec[max(peak - 2, 0)]) \             # <<<<<<<<<<<<<<
@@ -5551,7 +5512,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
       }
 
-      /* "_peak_detection.pyx":198
+      /* "_peak_detection.pyx":196
  *             peak = peaks[i]
  *             peak_ind = i
  *         if i == n - 1:             # <<<<<<<<<<<<<<
@@ -5561,7 +5522,7 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
     }
   }
 
-  /* "_peak_detection.pyx":203
+  /* "_peak_detection.pyx":201
  *                 peaks_refine.push_back(peak)
  *                 ridges_refine.push_back(ridges_select[peak_ind])
  *     return [peaks_refine[i] for i in range(peaks_refine.size())], \             # <<<<<<<<<<<<<<
@@ -5569,60 +5530,60 @@ static PyObject *__pyx_pf_15_peak_detection_4_peaks_position(CYTHON_UNUSED PyObj
  */
   __Pyx_XDECREF(__pyx_r);
   { /* enter inner scope */
-    __pyx_t_14 = PyList_New(0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 203, __pyx_L1_error)
+    __pyx_t_14 = PyList_New(0); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 201, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_14);
     __pyx_t_49 = __pyx_v_peaks_refine.size();
     __pyx_t_50 = __pyx_t_49;
     for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_50; __pyx_t_7+=1) {
       __pyx_8genexpr3__pyx_v_i = __pyx_t_7;
-      __pyx_t_2 = __Pyx_PyInt_From_int((__pyx_v_peaks_refine[__pyx_8genexpr3__pyx_v_i])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 203, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyInt_From_int((__pyx_v_peaks_refine[__pyx_8genexpr3__pyx_v_i])); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 201, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_14, (PyObject*)__pyx_t_2))) __PYX_ERR(0, 203, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_14, (PyObject*)__pyx_t_2))) __PYX_ERR(0, 201, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     }
   } /* exit inner scope */
   { /* enter inner scope */
 
-    /* "_peak_detection.pyx":204
+    /* "_peak_detection.pyx":202
  *                 ridges_refine.push_back(ridges_select[peak_ind])
  *     return [peaks_refine[i] for i in range(peaks_refine.size())], \
  *            [ridges[int(ridges_refine[i])] for i in range(ridges_refine.size())]             # <<<<<<<<<<<<<<
  */
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 202, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_49 = __pyx_v_ridges_refine.size();
     __pyx_t_50 = __pyx_t_49;
     for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_50; __pyx_t_7+=1) {
       __pyx_8genexpr4__pyx_v_i = __pyx_t_7;
-      __pyx_t_13 = __Pyx_PyInt_From_int((__pyx_v_ridges_refine[__pyx_8genexpr4__pyx_v_i])); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 204, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_13); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 204, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_From_int((__pyx_v_ridges_refine[__pyx_8genexpr4__pyx_v_i])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 202, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
-      __pyx_t_13 = __Pyx_PyObject_GetItem(__pyx_v_ridges, __pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 204, __pyx_L1_error)
+      __pyx_t_13 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyInt_Type)), __pyx_t_4); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 202, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_13);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_13))) __PYX_ERR(0, 204, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetItem(__pyx_v_ridges, __pyx_t_13); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 202, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_t_4))) __PYX_ERR(0, 202, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
   } /* exit inner scope */
 
-  /* "_peak_detection.pyx":203
+  /* "_peak_detection.pyx":201
  *                 peaks_refine.push_back(peak)
  *                 ridges_refine.push_back(ridges_select[peak_ind])
  *     return [peaks_refine[i] for i in range(peaks_refine.size())], \             # <<<<<<<<<<<<<<
  *            [ridges[int(ridges_refine[i])] for i in range(ridges_refine.size())]
  */
-  __pyx_t_13 = PyTuple_New(2); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 203, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_13);
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 201, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_14);
-  PyTuple_SET_ITEM(__pyx_t_13, 0, __pyx_t_14);
+  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_14);
   __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_13, 1, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_2);
   __pyx_t_14 = 0;
   __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_13;
-  __pyx_t_13 = 0;
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
   goto __pyx_L0;
 
   /* "_peak_detection.pyx":126
@@ -8188,7 +8149,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_peaks_position, __pyx_k_peaks_position, sizeof(__pyx_k_peaks_position), 0, 0, 1, 1},
   {&__pyx_n_s_peaks_refine, __pyx_k_peaks_refine, sizeof(__pyx_k_peaks_refine), 0, 0, 1, 1},
   {&__pyx_n_s_plus, __pyx_k_plus, sizeof(__pyx_k_plus), 0, 0, 1, 1},
-  {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_ridge_detection, __pyx_k_ridge_detection, sizeof(__pyx_k_ridge_detection), 0, 0, 1, 1},
   {&__pyx_n_s_ridge_ind, __pyx_k_ridge_ind, sizeof(__pyx_k_ridge_ind), 0, 0, 1, 1},
@@ -8220,7 +8180,6 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   #else
   __pyx_builtin_xrange = __Pyx_GetBuiltinName(__pyx_n_s_xrange); if (!__pyx_builtin_xrange) __PYX_ERR(0, 90, __pyx_L1_error)
   #endif
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 163, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 856, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 1038, __pyx_L1_error)
   return 0;
